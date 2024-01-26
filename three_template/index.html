@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Threejs</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script type="module" src="src/main.js"></script>
+		<script type="x-shader/x-vertex" id="vertexShader">
+
+			void main() {
+
+				gl_Position = vec4(position, 1.0);
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentShader">
+
+			void main() {
+
+				gl_FragColor = vec4(1.0., 0.0, 0.0, 1.0);
+
+			}
+
+		</script>
+	</body>
+</html>
