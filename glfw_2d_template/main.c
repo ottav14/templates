@@ -3,6 +3,20 @@
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 
+char* read_shader(FILE *shader) {
+
+	fseek(shader, 0, SEEK_END);
+	long file_size = ftell(shader);
+	fseek(shader, 0, SEEK_SET);
+
+	char *buffer = (char*)malloc(file_size);
+
+	fread(buffer, file_size, 1, shader);
+	printf("%s", buffer);
+
+	return buffer;
+}
+
 void draw_quad(GLFWwindow *window) {
 
 	const float size = 0.5f;
@@ -40,6 +54,15 @@ void init(GLFWwindow *window) {
 	glfwSwapInterval(1);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+	FILE *fragment_shader = fopen("../shaders/fragment_shader.glsl", "r");
+	FILE *vertex_shader = fopen("../shaders/vertex_shader.glsl", "r");
+
+
+	char *fragment_shader_content = read_shader(fragment_shader);
+	char *vertex_shader_content = read_shader(vertex_shader);
+
+	fclose(fragment_shader);
+	fclose(vertex_shader);
 }
 
 int main(int argc, char **argv) {
