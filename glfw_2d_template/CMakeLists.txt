@@ -1,12 +1,18 @@
-set(NAME "glfw_program")
-
-find_package(glfw3 REQUIRED)
-include_directories(${GLFW_INCLUDE_DIRS})
-
 cmake_minimum_required(VERSION 3.10)
-project(${NAME})
+project(glfw_template)
 
-add_executable(${NAME} main.c)
+set(OpenGL_GL_PREFERENCE LEGACY)
 
-target_link_libraries(${NAME} glfw)
-target_link_libraries(${NAME} GL)
+find_package(OpenGL REQUIRED)
+find_package(glfw3 REQUIRED)
+find_package(GLEW REQUIRED)
+
+add_executable(out src/main.c)
+
+target_include_directories(out PRIVATE
+    ${OPENGL_INCLUDE_DIRS}
+    ${GLEW_INCLUDE_DIRS}
+    ${GLFW_INCLUDE_DIRS}
+)
+
+target_link_libraries(out PRIVATE glfw GLEW::GLEW ${OPENGL_LIBRARIES})

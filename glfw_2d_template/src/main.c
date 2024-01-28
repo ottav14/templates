@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <GL/glew.h>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
 
@@ -12,7 +13,6 @@ char* read_shader(FILE *shader) {
 	char *buffer = (char*)malloc(file_size);
 
 	fread(buffer, file_size, 1, shader);
-	printf("%s", buffer);
 
 	return buffer;
 }
@@ -58,8 +58,8 @@ void init(GLFWwindow *window) {
 	FILE *vertex_shader = fopen("../shaders/vertex_shader.glsl", "r");
 
 
-	char *fragment_shader_content = read_shader(fragment_shader);
 	char *vertex_shader_content = read_shader(vertex_shader);
+	char *fragment_shader_content = read_shader(fragment_shader);
 
 	fclose(fragment_shader);
 	fclose(vertex_shader);
@@ -78,8 +78,8 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
-	init(window);
 
+	init(window);
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
 
