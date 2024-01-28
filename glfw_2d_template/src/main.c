@@ -55,13 +55,11 @@ GLuint create_shader_program(char* vertex_path, char* fragment_path) {
 	free((void*)vertex_code);
 	free((void*)fragment_code);
 
-	// Create shader program
 	GLuint shader_program = glCreateProgram();
 	glAttachShader(shader_program, vertex_shader);
 	glAttachShader(shader_program, fragment_shader);
 	glLinkProgram(shader_program);
 
-	// Check for linking errors
 	GLint success;
 	glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
 	if (!success) {
@@ -70,7 +68,6 @@ GLuint create_shader_program(char* vertex_path, char* fragment_path) {
 		fprintf(stderr, "Shader program linking error: %s\n", info_log);
 	}
 
-	// Clean up
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
 
@@ -195,9 +192,12 @@ int main(int argc, char **argv) {
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
 
+	glUseProgram(shader_program);
+	GLint resolution_location = glGetUniformLocation(shader_program, "resolution");
+	glUniform2f(resolution_location, 1920.0f, 1080.0f);
+
 	while (!glfwWindowShouldClose(window)) {
 
-		glUseProgram(shader_program);
 
 		glBindVertexArray(VAO);
 
