@@ -196,8 +196,12 @@ int main(int argc, char **argv) {
 	GLint resolution_location = glGetUniformLocation(shader_program, "resolution");
 	glUniform2f(resolution_location, 1920.0f, 1080.0f);
 
+	float time = 0.0f;
 	while (!glfwWindowShouldClose(window)) {
 
+		GLint time_location = glGetUniformLocation(shader_program, "time");
+		glUniform1f(time_location, time);
+		time += 0.01;
 
 		glBindVertexArray(VAO);
 
